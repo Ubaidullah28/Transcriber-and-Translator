@@ -1,0 +1,47 @@
+{% extends "speech/base.html" %}
+{% load static %}
+{% block content %}
+<section class="card">
+    <h2>Transcribe Audio (Upload)</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Transcribe</button>
+    </form>
+
+    {% if transcript %}
+        <hr>
+        <h3>Transcript</h3>
+        <pre class="output">{{ transcript }}</pre>
+
+        {% if translated %}
+            <h3>Translated Transcript</h3>
+            <pre class="output">{{ translated }}</pre>
+        {% endif %}
+    {% endif %}
+</section>
+
+<section class="card">
+    <h2>Live Recording (Browser)</h2>
+    <p>Record directly from your microphone and transcribe.</p>
+
+    <label for="record-target-language">Output language:</label>
+    <select id="record-target-language">
+        {% for value, label in form.fields.target_language.choices %}
+            <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
+    </select>
+
+    <div class="btn-row">
+        <button id="start-record-btn" class="btn">Start Recording</button>
+        <button id="stop-record-btn" class="btn btn-secondary" disabled>Stop &amp; Transcribe</button>
+    </div>
+
+    <p id="record-status"></p>
+
+    <h3>Live Transcript</h3>
+    <pre id="live-transcript" class="output"></pre>
+    <h3>Live Translated</h3>
+    <pre id="live-translated" class="output"></pre>
+</section>
+{% endblock %}

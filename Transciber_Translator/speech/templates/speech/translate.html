@@ -1,0 +1,17 @@
+{% extends "speech/base.html" %}
+{% block content %}
+<section class="card">
+    <h2>Translate Text</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Translate</button>
+    </form>
+
+    {% if result %}
+        <hr>
+        <h3>Translated Text</h3>
+        <pre class="output">{{ result }}</pre>
+    {% endif %}
+</section>
+{% endblock %}

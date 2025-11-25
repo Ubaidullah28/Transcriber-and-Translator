@@ -1,0 +1,11 @@
+{% extends "speech/base.html" %}
+{% block content %}
+<section class="card center">
+    <h2>Welcome</h2>
+    <p>Convert speech to text using Whisper and translate it into multiple languages.</p>
+    <div class="btn-row">
+        <a class="btn" href="{% url 'speech:transcribe' %}">Transcribe Audio</a>
+        <a class="btn" href="{% url 'speech:translate' %}">Translate Text</a>
+    </div>
+</section>
+{% endblock %}
