@@ -13,10 +13,7 @@ def _get_model():
     return _model
 
 def transcribe_audio_file(django_file) -> str:
-    """
-    Takes a Django UploadedFile, saves to a temp file,
-    runs Whisper transcription, and returns plain text.
-    """
+    
     model = _get_model()
 
     # save uploaded chunks into a temporary file
