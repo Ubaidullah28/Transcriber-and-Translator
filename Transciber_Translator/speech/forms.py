@@ -34,6 +34,19 @@ class TranscriptionForm(forms.Form):
         choices=LANGUAGE_CHOICES,
         label='Output language'
     )
+    def clean_audio_file(self):
+        """
+        Ensures uploaded file has a valid audio extension.
+        (Light validation to avoid user mistakes — functionality unchanged)
+        """
+        audio = self.cleaned_data['audio_file']
+        valid_extensions = ('.wav', '.mp3', '.m4a', '.webm')
+
+        if not audio.name.lower().endswith(valid_extensions):
+            raise forms.ValidationError(
+                "Unsupported file format. Please upload a valid audio file."
+            )
+        return audio
 
 class TranslationForm(forms.Form):
     source_text = forms.CharField(
